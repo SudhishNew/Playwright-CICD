@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2581","Confirm Alerts","chromium","2026-07-16","passed","2026-07-16","","Alert.spec.js","",""
+"","2596","Promt Alerts","chromium","2026-07-16","passed","2026-07-16","","Alert.spec.js","",""
+"","3383","Moder Alert","chromium","2026-07-16","passed","2026-07-16","","Alert.spec.js","",""
+"","507","Alerts Using Iflse Ladder","chromium","2026-07-16","passed","2026-07-16","","Alert.spec.js","",""
+"","2599","Simple Alerts","chromium","2026-07-16","passed","2026-07-16","","Alert.spec.js","",""
