@@ -13,11 +13,15 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     steps:
       - name: Checkout Repository
@@ -26,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts/*
+          node-version: 24.x
 
       - name: Install Dependencies
         run: npm ci
@@ -45,6 +49,15 @@ jobs:
         if: always()
         run: allure generate allure-results --clean -o allure-report
 
+      - name: Prepare Reports for GitHub Pages
+        if: always() && github.event_name == 'push'
+        run: |
+          rm -rf site || true
+          mkdir -p site/allure site/playwright
+          if [ -d "allure-report" ]; then cp -R allure-report/* site/allure/; fi
+          if [ -d "playwright-report" ]; then cp -R playwright-report/* site/playwright/; fi
+          echo "Reports prepared in site/"
+
       - name: Upload Playwright Report
         if: always()
         uses: actions/upload-artifact@v4
@@ -61,9 +74,9 @@ jobs:
           path: allure-report/
           retention-days: 30
 
-      - name: Deploy Allure Report to GitHub Pages
+      - name: Deploy Reports to GitHub Pages
         if: always() && github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: ./site
