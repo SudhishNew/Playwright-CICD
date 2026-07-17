@@ -1,3 +1,0 @@
-prompt
-Please enter your name:
-Hello George! How are you today?
