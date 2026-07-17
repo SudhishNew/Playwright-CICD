@@ -69,6 +69,7 @@ test("Alerts Using Iflse Ladder", async ({ page }) => {
         console.log(alert.type());
       } else {
         await alert.dismiss();
+        // await page.getBy
       }
     }
   });
